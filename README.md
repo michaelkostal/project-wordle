@@ -1,4 +1,4 @@
-# Word Game
+# Word Game Fun
 
 ## Joy of React, Project I
 

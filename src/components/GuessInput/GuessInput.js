@@ -3,7 +3,7 @@ import React from 'react';
 function GuessInput({handleSubmitGuess}) {
   const [tentativeGuess, setTentativeGuess] = React.useState('');
   return (
-      <form autoComplete="off" className="tentativeGuess-input-wrapper"
+      <form autoComplete="off" className="guess-input-wrapper"
           onSubmit={event => {
               event.preventDefault();
               handleSubmitGuess(tentativeGuess);

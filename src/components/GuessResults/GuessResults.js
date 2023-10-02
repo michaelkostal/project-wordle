@@ -2,30 +2,18 @@ import React from 'react';
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 import { range } from '../../utils';
 
-function Grid({ numRows, numCols }) {
-  return (
-    <div className="grid">
-      {range(numRows).map((num) => (
-        <p className="guess" key={num}>
-          {range(numCols).map((num) => (
-            <span className="cell" key={num}></span>
+
+
+function GuessResults({ guesses }) {
+  return <div className="guess-results">
+      {range(NUM_OF_GUESSES_ALLOWED).map((rowNum) => (
+        <p className="guess" key={rowNum}>
+          {range(5).map((colNum, index) => (
+            <span className="cell" key={colNum}>{guesses[rowNum] && (guesses[rowNum]).charAt(index)}</span>
           ))}
         </p>
       ))}
     </div>
-  );
-}
-
-function GuessResults({ guesses }) {
-  return <div className="guess-results">
-    <Grid
-      numRows={NUM_OF_GUESSES_ALLOWED}
-      numCols={5}
-    />
-    {guesses.map((guess, index) => {
-      return <p className="guess" key={index}>{guess}</p>
-    })}
-  </div>;
 }
 
 export default GuessResults;

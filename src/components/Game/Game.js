@@ -7,7 +7,7 @@ import GuessInput from '../GuessInput';
 import GuessResults from '../GuessResults';
 import EndGame from '../EndGame';
 
-
+import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 
 // Pick a random word on every pageload.
 const answer = sample(WORDS);
@@ -18,12 +18,23 @@ function Game() {
   const [ gameOver, setGameOver ] = React.useState(false);
   const [ winner, setWinner ] = React.useState(false);
   function handleSubmitGuess(tentativeGuess){
-    setGuesses([...guesses,tentativeGuess]);
+    const nextGuesses = [...guesses,tentativeGuess];
+    const attempts = nextGuesses.length;
+    setGuesses(nextGuesses);
+    if (tentativeGuess === answer && attempts <= NUM_OF_GUESSES_ALLOWED){
+      setGameOver(true)
+      setWinner(true)
+    } else if (attempts === NUM_OF_GUESSES_ALLOWED){
+      setGameOver(true);
+    }
+
   }
+
+
   return <>
   <GuessResults guesses={guesses} answer={answer} />
   <GuessInput handleSubmitGuess={handleSubmitGuess} gameOver={gameOver} />
-  <EndGame guesses={guesses} answer={answer} gameOver={gameOver} setGameOver={setGameOver} winner={winner} setWinner={setWinner} />
+  {gameOver && <EndGame winner={winner} guesses={guesses} answer={answer} />}
   </>
 }
 

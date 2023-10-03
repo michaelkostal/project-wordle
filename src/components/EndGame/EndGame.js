@@ -1,14 +1,15 @@
 import React from 'react';
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 
-function EndGame({ guesses, answer, gameOver, setGameOver }){
+function EndGame({ guesses, answer, gameOver, setGameOver, winner, setWinner }){
   const attempts = guesses.length;
   guesses.forEach(guess => {
     if (guess === answer){
       setGameOver(true)
+      setWinner(true)
     }
   })
-  if (gameOver && attempts <= NUM_OF_GUESSES_ALLOWED){
+  if (winner && attempts <= NUM_OF_GUESSES_ALLOWED){
     return <div className="happy banner">
     <p>Woohoo! It only took <strong>{attempts} guess{attempts === 1 ? '' : 'es'}</strong></p>
     </div>

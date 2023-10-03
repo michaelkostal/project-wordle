@@ -22,8 +22,8 @@ function Game() {
     const attempts = nextGuesses.length;
     setGuesses(nextGuesses);
     if (tentativeGuess === answer && attempts <= NUM_OF_GUESSES_ALLOWED){
-      setGameOver(true)
-      setWinner(true)
+      setGameOver(true);
+      setWinner(true);
     } else if (attempts === NUM_OF_GUESSES_ALLOWED){
       setGameOver(true);
     }

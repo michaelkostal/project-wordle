@@ -6,6 +6,7 @@ import { WORDS } from '../../data';
 import GuessInput from '../GuessInput';
 import GuessResults from '../GuessResults';
 import EndGame from '../EndGame';
+import Keyboard from '../Keyboard';
 
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 
@@ -18,6 +19,7 @@ function Game() {
   const [guesses, setGuesses] = React.useState([]);
   const [gameOver, setGameOver] = React.useState(false);
   const [winner, setWinner] = React.useState(false);
+  const [tentativeGuess, setTentativeGuess] = React.useState('');
 
   function handleSubmitGuess(tentativeGuess) {
     const nextGuesses = [...guesses, tentativeGuess];
@@ -33,7 +35,8 @@ function Game() {
 
   return <>
     <GuessResults guesses={guesses} answer={answer} />
-    <GuessInput handleSubmitGuess={handleSubmitGuess} gameOver={gameOver} />
+    <GuessInput handleSubmitGuess={handleSubmitGuess} gameOver={gameOver} tentativeGuess={tentativeGuess} setTentativeGuess={setTentativeGuess} />
+    <Keyboard handleSubmitGuess={handleSubmitGuess} guesses={guesses} answer={answer} tentativeGuess={tentativeGuess} setTentativeGuess={setTentativeGuess} />
     {gameOver && <EndGame winner={winner} guesses={guesses} answer={answer} />}
   </>
 }

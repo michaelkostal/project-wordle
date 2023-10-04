@@ -1,7 +1,7 @@
 import React from 'react';
 
-function GuessInput({ handleSubmitGuess, gameOver }) {
-  const [tentativeGuess, setTentativeGuess] = React.useState('');
+function GuessInput({ tentativeGuess, setTentativeGuess, handleSubmitGuess, gameOver }) {
+  
   return (
     <form autoComplete="off" className="guess-input-wrapper"
       onSubmit={event => {

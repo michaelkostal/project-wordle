@@ -5,7 +5,7 @@ import { WORDS } from '../../data';
 
 import GuessInput from '../GuessInput';
 import GuessResults from '../GuessResults';
-import EndGame from '../EndGame';
+import GameOverBanner from '../GameOverBanner';
 import Keyboard from '../Keyboard';
 
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
@@ -15,9 +15,11 @@ import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
 // To make debugging easier, we'll log the solution in the console.
 
 function Game() {
+  // running | won | lost
+  const [gameStatus, setGameStatus] = React.useState('running');
+  
   const [guesses, setGuesses] = React.useState([]);
-  const [gameOver, setGameOver] = React.useState(false);
-  const [winner, setWinner] = React.useState(false);
+  
   const [tentativeGuess, setTentativeGuess] = React.useState('');
   const [answer, setAnswer] = React.useState(() => {
     const initialAnswer = sample(WORDS);
@@ -26,28 +28,43 @@ function Game() {
   })
   function handleSubmitGuess(tentativeGuess) {
     const nextGuesses = [...guesses, tentativeGuess];
-    const attempts = nextGuesses.length;
     setGuesses(nextGuesses);
-    if (tentativeGuess === answer && attempts <= NUM_OF_GUESSES_ALLOWED) {
-      setGameOver(true);
-      setWinner(true);
-    } else if (attempts === NUM_OF_GUESSES_ALLOWED) {
-      setGameOver(true);
+    if (tentativeGuess === answer) {
+      setGameStatus('won');
+    } else if (nextGuesses.length >= NUM_OF_GUESSES_ALLOWED) {
+      setGameStatus('lost');
     }
   }
   function handlePlayAgain(){
     const nextAnswer = sample(WORDS);
     console.info({ nextAnswer });
     setAnswer(nextAnswer);
-    setGameOver(false);
-    setWinner(false);
+    setGameStatus('running');
     setGuesses([]);
   }
   return <>
     <GuessResults guesses={guesses} answer={answer} />
-    <GuessInput handleSubmitGuess={handleSubmitGuess} gameOver={gameOver} tentativeGuess={tentativeGuess} setTentativeGuess={setTentativeGuess} />
-    <Keyboard handleSubmitGuess={handleSubmitGuess} guesses={guesses} answer={answer} tentativeGuess={tentativeGuess} setTentativeGuess={setTentativeGuess} />
-    {gameOver && <EndGame winner={winner} guesses={guesses} answer={answer} handlePlayAgain={handlePlayAgain} />}
+    <GuessInput 
+      handleSubmitGuess={handleSubmitGuess} 
+      gameStatus={gameStatus} 
+      tentativeGuess={tentativeGuess} 
+      setTentativeGuess={setTentativeGuess} 
+    />
+    <Keyboard 
+      handleSubmitGuess={handleSubmitGuess} 
+      guesses={guesses} 
+      answer={answer} 
+      tentativeGuess={tentativeGuess} 
+      setTentativeGuess={setTentativeGuess} 
+    />
+    {gameStatus !== 'running' && 
+      <GameOverBanner 
+        gameStatus={gameStatus} 
+        guesses={guesses} 
+        answer={answer} 
+        handlePlayAgain={handlePlayAgain} 
+      />
+    }
   </>
 }
 

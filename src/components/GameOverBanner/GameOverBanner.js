@@ -6,13 +6,13 @@ function PlayAgain({handlePlayAgain}){
   }}>Play again</button>
 }
 
-function EndGame({ winner, guesses, answer, handlePlayAgain }){
+function GameOverBanner({ gameStatus, guesses, answer, handlePlayAgain }){
   const attempts = guesses.length;
-  if (winner){
+  if (gameStatus === 'won'){
     return <div className="happy banner">
       <p>Woohoo! It only took <strong>{attempts} guess{attempts === 1 ? '' : 'es'}</strong>. <PlayAgain handlePlayAgain={handlePlayAgain} /></p>
     </div>
-  } else {
+  } else if (gameStatus === 'lost'){
     return <div className="sad banner">
       <p>Sorry, the correct answer is <strong>{answer}</strong>. <PlayAgain handlePlayAgain={handlePlayAgain} /></p>
     </div>
@@ -21,4 +21,4 @@ function EndGame({ winner, guesses, answer, handlePlayAgain }){
 
 }
 
-export default EndGame;
+export default GameOverBanner;

@@ -1,6 +1,6 @@
 import React from 'react';
 
-function GuessInput({ tentativeGuess, setTentativeGuess, handleSubmitGuess, gameOver }) {
+function GuessInput({ tentativeGuess, setTentativeGuess, handleSubmitGuess, gameStatus }) {
   
   return (
     <form autoComplete="off" className="guess-input-wrapper"
@@ -21,7 +21,7 @@ function GuessInput({ tentativeGuess, setTentativeGuess, handleSubmitGuess, game
         maxLength={5}
         pattern="[a-zA-Z]{5}"
         title="5 letter word"
-        disabled={gameOver}
+        disabled={gameStatus !== 'running'}
         onChange={
           event => {
             const nextGuess = event.target.value.toUpperCase();

@@ -5,7 +5,8 @@ import { WORDS } from '../../data';
 
 import GuessInput from '../GuessInput';
 import GuessResults from '../GuessResults';
-import GameOverBanner from '../GameOverBanner';
+import WonBanner from '../WonBanner';
+import LostBanner from '../LostBanner';
 import Keyboard from '../Keyboard';
 
 import { NUM_OF_GUESSES_ALLOWED } from '../../constants';
@@ -57,10 +58,14 @@ function Game() {
       tentativeGuess={tentativeGuess} 
       setTentativeGuess={setTentativeGuess} 
     />
-    {gameStatus !== 'running' && 
-      <GameOverBanner 
-        gameStatus={gameStatus} 
+    {gameStatus === 'won' && 
+      <WonBanner 
         numOfGuesses={guesses.length} 
+        handlePlayAgain={handlePlayAgain} 
+      />
+    }
+    {gameStatus === 'lost' && 
+      <LostBanner 
         answer={answer} 
         handlePlayAgain={handlePlayAgain} 
       />

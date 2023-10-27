@@ -6,11 +6,11 @@ function PlayAgain({handlePlayAgain}){
   }}>Play again</button>
 }
 
-function GameOverBanner({ gameStatus, guesses, answer, handlePlayAgain }){
-  const attempts = guesses.length;
+function GameOverBanner({ gameStatus, numOfGuesses, answer, handlePlayAgain }){
+  
   if (gameStatus === 'won'){
     return <div className="happy banner">
-      <p>Woohoo! It only took <strong>{attempts} guess{attempts === 1 ? '' : 'es'}</strong>. <PlayAgain handlePlayAgain={handlePlayAgain} /></p>
+      <p>Woohoo! It only took <strong>{numOfGuesses === 1 ? '1 guess' : `${numOfGuesses} guesses`}</strong>. <PlayAgain handlePlayAgain={handlePlayAgain} /></p>
     </div>
   } else if (gameStatus === 'lost'){
     return <div className="sad banner">

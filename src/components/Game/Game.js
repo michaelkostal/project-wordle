@@ -60,7 +60,7 @@ function Game() {
     {gameStatus !== 'running' && 
       <GameOverBanner 
         gameStatus={gameStatus} 
-        guesses={guesses} 
+        numOfGuesses={guesses.length} 
         answer={answer} 
         handlePlayAgain={handlePlayAgain} 
       />
